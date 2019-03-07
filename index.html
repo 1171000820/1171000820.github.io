@@ -47,13 +47,13 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="/blogimg/avatar.png" class="js-avatar">
+			<img src="/blogimg/avatar.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">FETS</a></h1>
 		</hgroup>
 		
-		<p class="header-subtitle">Welcome!</p>
+		<p class="header-subtitle">那些80年代的红砖还能叫红色吗，大概只能算煤球渣子的近亲。</p>
 		
 		<nav class="header-menu">
 			<ul>
@@ -71,7 +71,7 @@
     			
             
     			
-    			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">这波没我</a>
+    			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">与我无关</a>
     			
             
 		</nav>
@@ -98,13 +98,13 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="/blogimg/avatar.png" class="js-avatar">
+				<img src="/blogimg/avatar.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">FETS</h1>
 			</hgroup>
 			
-			<p class="header-subtitle"><i class="icon icon-quo-left"></i>Welcome!<i class="icon icon-quo-right"></i></p>
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>那些80年代的红砖还能叫红色吗，大概只能算煤球渣子的近亲。<i class="icon icon-quo-right"></i></p>
 			
 			
 			
@@ -206,7 +206,6 @@
 <p>​    ③编码格式问题</p>
 <p>​    首先最好保证Eclipse的编码格式</p>
 <p>​    以下部分进行改动</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">encoding</span>&gt;</span>utf-8<span class="tag">&lt;/<span class="name">encoding</span>&gt;</span> <span class="comment">&lt;!-- 这里加一句 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;以及在project标签内添加以下部分</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">		UTF-8</span><br><span class="line">	<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -361,7 +360,7 @@ MathJax.Hub.Queue(function() {
       
         
       
-      <li style="width: 50%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">这波没我</a></li>
+      <li style="width: 50%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">与我无关</a></li>
       
         
     </ul>
@@ -406,7 +405,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">我很好奇！&lt;pr&gt; RUA!</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">我很好奇！&lt;br&gt;&lt;br&gt; RUA!</div>
   	  	
     	</section>
     
