@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="FETS&#39;s blog">
 <meta property="og:description" content="0    序言&amp;emsp;&amp;emsp;这篇文章一方面是自我的实验总结，另一方面希望给予寒假没有预习的同学一个探路式的指导。 1    实验准备阶段1.0    梯子&amp;emsp;&amp;emsp;google、github、piazza或者一些软件库之类的国外网站有时候不太稳定，你需要一个梯子才能稳定访问。如果不知道什么是梯子的，我建议退学Lantern。 1.1    JDK&amp;emsp;&amp;emsp;你需">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-06T02:48:18.639Z">
+<meta property="og:updated_time" content="2019-03-07T14:17:59.907Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2019秋季学期软件构造 Lab-1总结">
 <meta name="twitter:description" content="0    序言&amp;emsp;&amp;emsp;这篇文章一方面是自我的实验总结，另一方面希望给予寒假没有预习的同学一个探路式的指导。 1    实验准备阶段1.0    梯子&amp;emsp;&amp;emsp;google、github、piazza或者一些软件库之类的国外网站有时候不太稳定，你需要一个梯子才能稳定访问。如果不知道什么是梯子的，我建议退学Lantern。 1.1    JDK&amp;emsp;&amp;emsp;你需">
@@ -165,7 +165,7 @@
       </header>
     
     
-        <iframe frameborder="no" border="0" marginwidth marginheight="0" width="360" height="50" src="//music.163.com/outchain/player?type=0&id=157494800&auto=1&height=32"></iframe>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=0&id=157494800&auto=1&height=32"></iframe>
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="0-序言"><a href="#0-序言" class="headerlink" title="0    序言"></a>0    序言</h1><p>&emsp;&emsp;这篇文章一方面是自我的实验总结，另一方面希望给予寒假没有预习的同学一个探路式的指导。</p>
@@ -196,16 +196,16 @@
 <p>&emsp;&emsp;你需要使用：<a href="https://www.travis-ci.com/" target="_blank" rel="noopener">travis-ci.com</a>（注意后缀不是org）</p>
 <p>&emsp;&emsp;这个网站才可以在线build你的在github classroom中的私有库，另外第一次打开时可能显示不出来你的私有仓库，你可能需要同步一下github，或者等一段时间。</p>
 <p>&emsp;&emsp;<a href="https://www.liaoxuefeng.com/article/0014631488240837e3633d3d180476cb684ba7c10fda6f6000" target="_blank" rel="noopener">Travis简要介绍</a>    </p>
-<h2 id="3-1-Maven"><a href="#3-1-Maven" class="headerlink" title="3.1    Maven"></a>3.1    Maven</h2><p>&emsp;&emsp;<a href="https://blog.csdn.net/weixin_38338161/article/details/79554090" target="_blank" rel="noopener">学长的火炬</a></p>
+<h2 id="3-1-Maven"><a href="#3-1-Maven" class="headerlink" title="3.1    Maven"></a>3.1    Maven</h2><p>&emsp;&emsp;<a href="https://blog.csdn.net/qq_37487121/article/details/79506038" target="_blank" rel="noopener">学长的火炬</a></p>
 <p>&emsp;&emsp;这位16学长写的很好，我补充一些他缺失的细节。</p>
 <p>&emsp;&emsp;①Eclipse自动生成的pom.xml与文章中的略有不同，一开始是没有dependency标签的，需要自己添加，注意区分异同，并自行搜索网上格式范例添加标签。Eclipse如何生成pom.xml请自行百度。</p>
 <p>&emsp;&emsp;②在pom.xml中编写依赖时，Junit的格式建议使用如下的形式</p>
-<p>​    </p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span>	<span class="comment">&lt;!-- 这里有变动 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>​    另外，Junit在本地第一次build时可能会出问题，需要进入Maven的个人仓库中删除重新下载。</p>
 <p>​    ③编码格式问题</p>
 <p>​    首先最好保证Eclipse的编码格式</p>
 <p>​    以下部分进行改动</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">encoding</span>&gt;</span>utf-8<span class="tag">&lt;/<span class="name">encoding</span>&gt;</span> <span class="comment">&lt;!-- 这里加一句 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;以及在project标签内添加以下部分</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">		UTF-8</span><br><span class="line">	<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
