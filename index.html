@@ -53,7 +53,7 @@
 		  <h1 class="header-author"><a href="/">FETS</a></h1>
 		</hgroup>
 		
-		<p class="header-subtitle">那些80年代的红砖还能叫红色吗，大概只能算煤球渣子的近亲。</p>
+		<p class="header-subtitle">God Knows</p>
 		
 		<nav class="header-menu">
 			<ul>
@@ -104,7 +104,7 @@
 			  <h1 class="header-author js-header-author">FETS</h1>
 			</hgroup>
 			
-			<p class="header-subtitle"><i class="icon icon-quo-left"></i>那些80年代的红砖还能叫红色吗，大概只能算煤球渣子的近亲。<i class="icon icon-quo-right"></i></p>
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>God Knows<i class="icon icon-quo-right"></i></p>
 			
 			
 			
@@ -147,6 +147,116 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2019秋季学期软件构造-Lab-2总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/2019秋季学期软件构造-Lab-2总结/">2019秋季学期软件构造 Lab-1总结</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/22/2019秋季学期软件构造-Lab-2总结/" class="archive-article-date">
+  	<time datetime="2019-03-22T04:18:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-22</time>
+</a>
+        
+      </header>
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="0-序言"><a href="#0-序言" class="headerlink" title="0    序言"></a>0    序言</h1><p>&emsp;&emsp;这篇文章一方面是自我的实验总结，另一方面希望给予还没有开始lab2的同学一个指导。</p>
+<h1 id="1-实验准备阶段"><a href="#1-实验准备阶段" class="headerlink" title="1    实验准备阶段"></a>1    实验准备阶段</h1><h2 id="1-0-搞清楚那些奇奇怪怪的名词"><a href="#1-0-搞清楚那些奇奇怪怪的名词" class="headerlink" title="1.0    搞清楚那些奇奇怪怪的名词"></a>1.0    搞清楚那些奇奇怪怪的名词</h2><p>&emsp;&emsp;为了搞清楚这些名词你需要在这个博客内阅读</p>
+<p>&emsp;&emsp;<a href="https://www.cnblogs.com/liqiuhao/" target="_blank" rel="noopener">MIT readings的中文版</a></p>
+<p>&emsp;&emsp;或者选择阅读老师上课所用的PPT</p>
+<p>&emsp;&emsp;以下是自我总结</p>
+<p>&emsp;&emsp;<em>spec</em>(规约/规格)：提供客户与开发者沟通的桥梁。</p>
+<p>&emsp;&emsp;<em>pre-condition、post-condition</em>（前置条件、后置条件）：提供一组蕴含关系，客户需要满足pre-condition，当pre-condition满足时，开发者保证post-condition实现。如果pre-condition不满足，客户需要为此承担责任，所得到的反馈由开发者自由决定。如果post-condition不满足，说明开发者所实现的代码有bug，需要开发者重新debug。</p>
+<p>&emsp;&emsp;测试优先开发：首先编写测试样例，之后实现方法，这样可以在实现方法前提前考虑各种边界、特殊情况。</p>
+<p>&emsp;&emsp;泛型：一般代码中变量的数据类型是固定的，我们可以给予客户更大的自由，让数据类型也可以自由选择（尽管有时我们会对选择的范围加以限制）。增强代码复用性。不过也会因为所选择的数据类型的不同，产生新的bug。而且泛型只有在运行时才能确定的缘故，无法在静态检查阶段发现一些bug。</p>
+<p>&emsp;&emsp;<em>Representation</em>（表示）：使用的具体的较底层的用于实现该类的属性。</p>
+<p>​    <em>Abstraction Function/AF</em> (抽象函数) ：一个映射，由使用的属性映射到ADT中具体的抽象事物。</p>
+<p>&emsp;&emsp;<em>Representation Invariants/RI</em>（表示不变量） ：对于所使用的用于实现类的属性，有什么需要该属性一定满足的要求。比如有序，无重复等等。</p>
+<p>&emsp;&emsp;<em>Safety From Rep Exposure</em>（表示暴露安全性）：防止表示泄露所采取的措施，目前用到的有private final属性，不可变类，以及Defensive Copy（防御性拷贝）策略。</p>
+<p>&emsp;&emsp;<em>mutable/immutable</em>（可变性/不变性）：指当属性实例化后，能否再次改变实例化的对象的内部表示。尽量使用immutable的类。</p>
+<h1 id="2-Lab2简要分析"><a href="#2-Lab2简要分析" class="headerlink" title="2    Lab2简要分析"></a>2    Lab2简要分析</h1><h2 id="2-0-英语"><a href="#2-0-英语" class="headerlink" title="2.0    英语"></a>2.0    英语</h2><p>&emsp;&emsp;MIT和CMU的老师英文很好，所以实验要求读起来其实挺轻松的，如果觉得不轻松，请使用chrome浏览器自带翻译，效果拔群<del>甚至好于HIT老师的中文</del>。</p>
+<h2 id="2-1-Poetic-Walks"><a href="#2-1-Poetic-Walks" class="headerlink" title="2.1    Poetic Walks"></a>2.1    Poetic Walks</h2><p>&emsp;&emsp;考验你对之前那些概念的熟悉程度，写起来代码比注释好写，注意官方作业的要去。</p>
+<p>&emsp;&emsp;其中实现的用于在图中添加边的set函数相对复杂一些，需要仔细斟酌测试。</p>
+<p>&emsp;&emsp;学习一下泛型。</p>
+<h2 id="2-2-Re-implement-Social-Networks"><a href="#2-2-Re-implement-Social-Networks" class="headerlink" title="2.2    Re-implement Social Networks"></a>2.2    Re-implement Social Networks</h2><p>&emsp;&emsp;复用之前写好的图结构实现之前实现过的任务。</p>
+<p>&emsp;&emsp;读MIT的实验要求时可能觉得他们有些啰嗦，对于一些规范上的东西写的非常详尽，这挺好的<del>虽然TA八成没在意</del>。</p>
+<p>&emsp;&emsp;这么一写就显得它是个简单任务了。</p>
+<h2 id="2-3-Playing-Chess"><a href="#2-3-Playing-Chess" class="headerlink" title="2.3    Playing Chess"></a>2.3    Playing Chess</h2><p>&emsp;&emsp;从零开始设计实现ADT，没有什么特别严格的要求，可以自由发挥。相对来说写起来比较辛苦。</p>
+<p>&emsp;&emsp;应该有很多种方案解决这个问题。</p>
+<p>&emsp;&emsp;我本人的Action类都是静态方法，也没有使用什么接口之类的，自底向上开发。</p>
+<p>&emsp;&emsp;自顶向下应该也是个好策略，先考虑需要用什么，再去实现，另外实现接口来区分两类棋应该也不错。</p>
+<p>&emsp;&emsp;不过该任务中两种棋的操作不复杂，也不需要考虑规则，我就偷了懒，没有利用接口。</p>
+<h2 id="2-4-Test-Eclemma"><a href="#2-4-Test-Eclemma" class="headerlink" title="2.4    Test  Eclemma"></a>2.4    Test  Eclemma</h2><p>&emsp;&emsp;eclispe如果版本够新是默认有eclemma的。</p>
+<p>&emsp;&emsp;使用eclemma运行测试代码能够查看代码覆盖率。</p>
+<p>&emsp;&emsp;可以根据具体的代码覆盖情况，增加测试样例。</p>
+<h1 id="3-总结"><a href="#3-总结" class="headerlink" title="3    总结"></a>3    总结</h1><p>&emsp;&emsp;第二次实验，难度跟上次差不多，只不过编码量大了些。因为不太熟练相关概念，以及需要做好许多代码以外的部分，因此实验跨度一周。对于新人来说，两周半应该是设定给自己的DDL，否则拖到后面会很难受，这个实验需要仔细斟酌的地方非常多。</p>
+<p>&emsp;&emsp;有任何问题欢迎联系我，博客侧边栏最下方书信图标有联系方式。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件构造</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">lab</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/22/2019秋季学期软件构造-Lab-2总结/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2019秋季学期软件构造-Lab-1总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -166,7 +276,6 @@
       </header>
     
     
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=0&id=157494800&auto=0&height=32"></iframe>
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="0-序言"><a href="#0-序言" class="headerlink" title="0    序言"></a>0    序言</h1><p>&emsp;&emsp;这篇文章一方面是自我的实验总结，另一方面希望给予寒假没有预习的同学一个探路式的指导。</p>
