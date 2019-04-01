@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>2019秋季学期软件构造 Lab-1总结 | FETS&#39;s blog</title>
+  <title>2019秋季学期软件构造 Lab-2总结 | FETS&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="0    序言&amp;emsp;&amp;emsp;这篇文章一方面是自我的实验总结，另一方面希望给予还没有开始lab2的同学一个指导。 1    实验准备阶段1.0    搞清楚那些奇奇怪怪的名词&amp;emsp;&amp;emsp;为了搞清楚这些名词你需要在这个博客内阅读 &amp;emsp;&amp;emsp;MIT readings的中文版 &amp;emsp;&amp;emsp;或者选择阅读老师上课所用的PPT &amp;emsp;&amp;emsp;以下是自我总">
 <meta name="keywords" content="软件构造,lab">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2019秋季学期软件构造 Lab-1总结">
+<meta property="og:title" content="2019秋季学期软件构造 Lab-2总结">
 <meta property="og:url" content="http://yoursite.com/2019/03/22/2019秋季学期软件构造-Lab-2总结/index.html">
 <meta property="og:site_name" content="FETS&#39;s blog">
 <meta property="og:description" content="0    序言&amp;emsp;&amp;emsp;这篇文章一方面是自我的实验总结，另一方面希望给予还没有开始lab2的同学一个指导。 1    实验准备阶段1.0    搞清楚那些奇奇怪怪的名词&amp;emsp;&amp;emsp;为了搞清楚这些名词你需要在这个博客内阅读 &amp;emsp;&amp;emsp;MIT readings的中文版 &amp;emsp;&amp;emsp;或者选择阅读老师上课所用的PPT &amp;emsp;&amp;emsp;以下是自我总">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-22T15:03:26.372Z">
+<meta property="og:updated_time" content="2019-04-01T06:36:13.505Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2019秋季学期软件构造 Lab-1总结">
+<meta name="twitter:title" content="2019秋季学期软件构造 Lab-2总结">
 <meta name="twitter:description" content="0    序言&amp;emsp;&amp;emsp;这篇文章一方面是自我的实验总结，另一方面希望给予还没有开始lab2的同学一个指导。 1    实验准备阶段1.0    搞清楚那些奇奇怪怪的名词&amp;emsp;&amp;emsp;为了搞清楚这些名词你需要在这个博客内阅读 &amp;emsp;&amp;emsp;MIT readings的中文版 &amp;emsp;&amp;emsp;或者选择阅读老师上课所用的PPT &amp;emsp;&amp;emsp;以下是自我总">
   
     <link rel="alternative" href="/atom.xml" title="FETS&#39;s blog" type="application/atom+xml">
@@ -153,7 +153,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      2019秋季学期软件构造 Lab-1总结
+      2019秋季学期软件构造 Lab-2总结
     </h1>
   
 
@@ -181,8 +181,7 @@
 <p>&emsp;&emsp;<em>Representation Invariants/RI</em>（表示不变量） ：对于所使用的用于实现类的属性，有什么需要该属性一定满足的要求。比如有序，无重复等等。</p>
 <p>&emsp;&emsp;<em>Safety From Rep Exposure</em>（表示暴露安全性）：防止表示泄露所采取的措施，目前用到的有private final属性，不可变类，以及Defensive Copy（防御性拷贝）策略。</p>
 <p>&emsp;&emsp;<em>mutable/immutable</em>（可变性/不变性）：指当属性实例化后，能否再次改变实例化的对象的内部表示。尽量使用immutable的类。</p>
-<h1 id="2-Lab2简要分析"><a href="#2-Lab2简要分析" class="headerlink" title="2    Lab2简要分析"></a>2    Lab2简要分析</h1><h2 id="2-0-英语"><a href="#2-0-英语" class="headerlink" title="2.0    英语"></a>2.0    英语</h2><p>&emsp;&emsp;MIT和CMU的老师英文很好，所以实验要求读起来其实挺轻松的，如果觉得不轻松，请使用chrome浏览器自带翻译，效果拔群<del>甚至好于HIT老师的中文</del>。</p>
-<h2 id="2-1-Poetic-Walks"><a href="#2-1-Poetic-Walks" class="headerlink" title="2.1    Poetic Walks"></a>2.1    Poetic Walks</h2><p>&emsp;&emsp;考验你对之前那些概念的熟悉程度，写起来代码比注释好写，注意官方作业的要去。</p>
+<h1 id="2-Lab2简要分析"><a href="#2-Lab2简要分析" class="headerlink" title="2    Lab2简要分析"></a>2    Lab2简要分析</h1><h2 id="2-1-Poetic-Walks"><a href="#2-1-Poetic-Walks" class="headerlink" title="2.1    Poetic Walks"></a>2.1    Poetic Walks</h2><p>&emsp;&emsp;考验你对之前那些概念的熟悉程度，写起来代码比注释好写，注意官方作业的要去。</p>
 <p>&emsp;&emsp;其中实现的用于在图中添加边的set函数相对复杂一些，需要仔细斟酌测试。</p>
 <p>&emsp;&emsp;学习一下泛型。</p>
 <h2 id="2-2-Re-implement-Social-Networks"><a href="#2-2-Re-implement-Social-Networks" class="headerlink" title="2.2    Re-implement Social Networks"></a>2.2    Re-implement Social Networks</h2><p>&emsp;&emsp;复用之前写好的图结构实现之前实现过的任务。</p>
@@ -346,7 +345,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0-序言"><span class="toc-number">1.</span> <span class="toc-text">0    序言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-实验准备阶段"><span class="toc-number">2.</span> <span class="toc-text">1    实验准备阶段</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-0-搞清楚那些奇奇怪怪的名词"><span class="toc-number">2.1.</span> <span class="toc-text">1.0    搞清楚那些奇奇怪怪的名词</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Lab2简要分析"><span class="toc-number">3.</span> <span class="toc-text">2    Lab2简要分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-0-英语"><span class="toc-number">3.1.</span> <span class="toc-text">2.0    英语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Poetic-Walks"><span class="toc-number">3.2.</span> <span class="toc-text">2.1    Poetic Walks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Re-implement-Social-Networks"><span class="toc-number">3.3.</span> <span class="toc-text">2.2    Re-implement Social Networks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Playing-Chess"><span class="toc-number">3.4.</span> <span class="toc-text">2.3    Playing Chess</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-Test-Eclemma"><span class="toc-number">3.5.</span> <span class="toc-text">2.4    Test  Eclemma</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-总结"><span class="toc-number">4.</span> <span class="toc-text">3    总结</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0-序言"><span class="toc-number">1.</span> <span class="toc-text">0    序言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-实验准备阶段"><span class="toc-number">2.</span> <span class="toc-text">1    实验准备阶段</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-0-搞清楚那些奇奇怪怪的名词"><span class="toc-number">2.1.</span> <span class="toc-text">1.0    搞清楚那些奇奇怪怪的名词</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Lab2简要分析"><span class="toc-number">3.</span> <span class="toc-text">2    Lab2简要分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Poetic-Walks"><span class="toc-number">3.1.</span> <span class="toc-text">2.1    Poetic Walks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Re-implement-Social-Networks"><span class="toc-number">3.2.</span> <span class="toc-text">2.2    Re-implement Social Networks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Playing-Chess"><span class="toc-number">3.3.</span> <span class="toc-text">2.3    Playing Chess</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-Test-Eclemma"><span class="toc-number">3.4.</span> <span class="toc-text">2.4    Test  Eclemma</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-总结"><span class="toc-number">4.</span> <span class="toc-text">3    总结</span></a></li></ol>
                     </div>
                 </span>
             </div>
