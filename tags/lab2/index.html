@@ -6,13 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>FETS&#39;s blog</title>
+  <title>Tag: lab2 | FETS&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="FETS&apos;s CODE blog">
 <meta name="keywords" content="I just want to share something.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="FETS&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/lab2/index.html">
 <meta property="og:site_name" content="FETS&#39;s blog">
 <meta property="og:description" content="FETS&apos;s CODE blog">
 <meta property="og:locale" content="zh-CN">
@@ -147,470 +147,34 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-2019秋季学期软件构造-Lab-5总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/28/2019秋季学期软件构造-Lab-5总结/">2019秋季学期软件构造-Lab-5总结</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/28/2019秋季学期软件构造-Lab-5总结/" class="archive-article-date">
-  	<time datetime="2019-05-28T07:12:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-28</time>
-</a>
-        
-      </header>
     
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="0-序言"><a href="#0-序言" class="headerlink" title="0    序言"></a>0    序言</h1><p>&emsp;&emsp;这篇文章是Lab5的实验总结，也作为下一步复习的资料使用。</p>
-<h1 id="1-实验准备阶段"><a href="#1-实验准备阶段" class="headerlink" title="1    实验准备阶段"></a>1    实验准备阶段</h1><h2 id="1-0-Lab5实验准备"><a href="#1-0-Lab5实验准备" class="headerlink" title="1.0    Lab5实验准备"></a>1.0    Lab5实验准备</h2><p>这次实验的要求是改进Lab5中的代码，改善代码的静态“美”和动态“美”。</p>
-<p>静态美主要是利用CheckStyle插件，改善代码风格。</p>
-<p>动态美需要动态分析代码内存使用，GC情况，IO效率等各方面的性能表现。</p>
-<h2 id="1-1-技术准备"><a href="#1-1-技术准备" class="headerlink" title="1.1    技术准备"></a>1.1    技术准备</h2><h3 id="1-1-0-CheckStyle"><a href="#1-1-0-CheckStyle" class="headerlink" title="1.1.0 CheckStyle"></a>1.1.0 CheckStyle</h3><p><del>治疗强迫症</del></p>
-<p>推荐大家使用Google规范，当然可以网上下载阿里规范使用，阿里还有一些其他的java code review的插件，也可以选用。</p>
-<p>如果之前实验没有像我一样用checkstyle的话，这次改起来非常痛苦。</p>
-<p>另外有兴趣的可以了解一下javadoc，很好的文档工具。</p>
-<h3 id="1-1-1-IO-in-Java"><a href="#1-1-1-IO-in-Java" class="headerlink" title="1.1.1　IO in Java"></a>1.1.1　IO in Java</h3><p>Java IO设置比较复杂，但也给了编写者更多的自由，可以比较不同的IO方式的效率。</p>
-<p>最基础的IO分为Text和Binary两个部分，以文本（字符串）或者流的方式读写。根据具体的应用场景提供不同的封装。</p>
-<p>后来添加了Scanner类提供更加现代化，更加易用的输入方法。还有nio等性能更好的实现。</p>
-<p>技术细节建议大家直接阅读文档或者搜索相关资料。</p>
-<h3 id="1-1-2-spotbugs"><a href="#1-1-2-spotbugs" class="headerlink" title="1.1.2　spotbugs"></a>1.1.2　spotbugs</h3><h3 id="1-1-3-内存管理模型"><a href="#1-1-3-内存管理模型" class="headerlink" title="1.1.3　内存管理模型"></a>1.1.3　内存管理模型</h3><p><em>栈(stack)</em>：存储方法调用信息和局部变量的内存空间。线程栈存放内存放该线程各个方法的内容。</p>
-<p><em>堆(heap</em>)：分为若干部分，每部分或者包含一个对象的表示，或者未被使用（称为空闲）。常量池在其中。</p>
-<p><em>元空间(metaspace</em>)：存放虚拟机加载的类信息</p>
-<h3 id="1-1-4-垃圾回收GC"><a href="#1-1-4-垃圾回收GC" class="headerlink" title="1.1.4　垃圾回收GC"></a>1.1.4　垃圾回收GC</h3><p>辨别内存中无用的对象并释放其空间。</p>
-<p>基本概念：</p>
-<p><em>根(root)</em>：垃圾回收器判断对象是否有用时，所依据的根节点。一般包括静态对象、寄存器（<strong>包括程序计数器</strong>）和内存中被运行时栈指向的部分。</p>
-<p><em>可达的(reachable)：</em>从根节点直接或间接可以到达的。</p>
-<p><em>不可达的(unreachable)：</em>即<strong>可达的</strong>之否定意义。</p>
-<p><em>生存的(live)</em>：从根节点可达的对象。</p>
-<p><em>死亡的(dead)</em>：从根节点不可达的对象。</p>
-<p>四种算法：</p>
-<p><em>Reference counting</em>：为每个对象维护一个计数，计算有多少有效引用指向它。当引用计数为0时，将该对象回收。</p>
-<p><em>Mark-Sweep</em>：从根节点遍历所有可达节点，并将不可达节点回收。节约空间且慢。</p>
-<p><em>Copying</em>：将所需对象复制入新区域，并递归地将新区域中对象所需的对象复制入新区域。最后回收旧区域。新生代GC，比标记清除高效。</p>
-<p><em>Mark-Compact</em>：将所需对象移至后面，之后将前面剩余的所有对象回收。并整理该部分对象，紧密结合在一起，维护空间起始地址即可。 老年代GC，省空间。</p>
-<p>三种GC：</p>
-<p><em>Minor GC</em>：　 从年轻代空间（包括 Eden 和 Survivor 区域）回收内存被称为 Minor GC。</p>
-<p><em>Major GC</em>：　 Major GC用于回收老年代，出现Major GC通常会出现至少一次Minor GC。</p>
-<p><em>Full GC</em>：　　Full GC是针对整个新生代、老生代、元空间（metaspace，java8以上版本取代perm gen）的全局范围的GC。</p>
-<h3 id="1-1-5-Dynamic-Program-Profiling"><a href="#1-1-5-Dynamic-Program-Profiling" class="headerlink" title="1.1.5　 Dynamic Program Profiling"></a>1.1.5　 Dynamic Program Profiling</h3><p>一些工具的使用，包括JVM自带的工具和一些第三方的Profiler工具。具体细节自行查找资料。</p>
-<h3 id="1-1-6-Memory-Dump-Analysis"><a href="#1-1-6-Memory-Dump-Analysis" class="headerlink" title="1.1.6　Memory Dump Analysis"></a>1.1.6　Memory Dump Analysis</h3><p>实验中采用了JVM的工具来导出内存信息，进而用MAT等分析工具来分析内存情况。工具的使用查找资料即可。</p>
-<h3 id="1-1-7-JVM虚拟机"><a href="#1-1-7-JVM虚拟机" class="headerlink" title="1.1.7　JVM虚拟机"></a>1.1.7　JVM虚拟机</h3><p>JVM内存模型调整：</p>
-<p> -Xmx3550m：设置JVM最大堆内存为3550M。<br>        -Xms3550m：设置JVM初始堆内存为3550M。<br>        -Xss128k：设置每个线程的栈大小。<br>        -Xmn2g：设置年轻代大小为2G。在整个堆内存大小确定的情况下，增大年轻代将会减小年老代，反之亦然。此值关系到JVM垃圾回收，对系统性能影响较大，官方推荐配置为整个堆大小的3/8。<br>        -XX:NewSize=1024m：设置年轻代初始值为1024M。<br>        -XX:MaxNewSize=1024m：设置年轻代最大值为1024M。<br>        -XX:PermSize=256m：设置持久代初始值为256M。<br>        -XX:MaxPermSize=256m：设置持久代最大值为256M。<br>        -XX:NewRatio=4：设置年轻代（包括1个Eden和2个Survivor区）与年老代的比值。表示年轻代比年老代为1:4。<br>        -XX:SurvivorRatio=4：设置年轻代中Eden区与Survivor区的比值。表示2个Survivor区（JVM堆内存年轻代中默认有2个大小相等的Survivor区）与1个Eden区的比值为2:4，即1个Survivor区占整个年轻代大小的1/6。<br>        -XX:MaxTenuringThreshold=7：表示一个对象如果在Survivor区（救助空间）移动了7次还没有被垃圾回收就进入年老代。如果设置为0的话，则年轻代对象不经过Survivor区，直接进入年老代，对于需要大量常驻内存的应用，这样做可以提高效率。如果将此值设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，这样可以增加对象在年轻代存活时间，增加对象在年轻代被垃圾回收的概率，减少Full GC的频率，这样做可以在某种程度上提高服务稳定性。</p>
-<p><a href="https://www.cnblogs.com/marcotan/p/4256885.html" target="_blank" rel="noopener">JVM参数大全</a></p>
-<p><em>Intergration testing</em>：集成测试，一些类，一些包，一些组件，一些子系统，一起测试。</p>
-<p><em>System testing</em>：一个系统，最后的测试。</p>
-<p><em>Regression testing</em>：每次更新版本后，重新做一遍之前已有的测试，保证代码没有因为版本更新出现新的问题。</p>
-<p><em>Coverage</em>:覆盖率，表征测试的完备程度，</p>
-<h1 id="2-Lab5实验细节记录"><a href="#2-Lab5实验细节记录" class="headerlink" title="2　Lab5实验细节记录"></a>2　Lab5实验细节记录</h1><h2 id="2-0-代码风格"><a href="#2-0-代码风格" class="headerlink" title="2.0　代码风格"></a>2.0　代码风格</h2><p>代码写的干净美观不只是能让人心情好，也有利于维护。</p>
-<h2 id="2-1-各类工具使用"><a href="#2-1-各类工具使用" class="headerlink" title="2.1 　各类工具使用"></a>2.1 　各类工具使用</h2><p>各类工具使用起来比较复杂，需要不断查找如何使用</p>
-<h2 id="2-3-IO使用"><a href="#2-3-IO使用" class="headerlink" title="2.3　IO使用"></a>2.3　IO使用</h2><h2 id="2-2-给定程序Debug"><a href="#2-2-给定程序Debug" class="headerlink" title="2.2　给定程序Debug"></a>2.2　给定程序Debug</h2><p>java有各种IO，如何选择，如何“搭配”测试比较麻烦。</p>
-<h1 id="3-总结"><a href="#3-总结" class="headerlink" title="3　总结"></a>3　总结</h1><p>&emsp;&emsp;第五次实验，以观察分析为主，写的地方很少，写起来比较顺利。</p>
-<p>&emsp;&emsp;有任何问题欢迎联系我，博客侧边栏最下方书信图标有联系方式。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件构造</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">lab5</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/28/2019秋季学期软件构造-Lab-5总结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
         </div>
-        
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019秋季学期软件构造-Lab-4总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+        <div class="archives">
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/28/2019秋季学期软件构造-Lab-4总结/">2019秋季学期软件构造-Lab-4总结</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/28/2019秋季学期软件构造-Lab-4总结/" class="archive-article-date">
-  	<time datetime="2019-05-28T00:15:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-28</time>
-</a>
-        
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="0-序言"><a href="#0-序言" class="headerlink" title="0    序言"></a>0    序言</h1><p>&emsp;&emsp;这篇文章是Lab4的实验总结，也作为下一步复习的资料使用。</p>
-<h1 id="1-实验准备阶段"><a href="#1-实验准备阶段" class="headerlink" title="1    实验准备阶段"></a>1    实验准备阶段</h1><h2 id="1-0-Lab4实验准备"><a href="#1-0-Lab4实验准备" class="headerlink" title="1.0    Lab4实验准备"></a>1.0    Lab4实验准备</h2><p>这次实验的要求是改进Lab3中设计的ADT，由于之前已经注意到了其中的一些问题，因此改进起来压力不大。</p>
-<p>这次的改进主要放在健壮性上。另外需要添加日志功能，添加更多测试，使用spotbugs工具，以及调试一些给定的代码。</p>
-<p><em>Error–Fault/defect/bug–failure</em>这个链条上，避免每一步的问题，防止做出Error行为，得到Error正确察觉并反馈，Fault或Bug出现后，程序运行尽快failure，防止扩大事态。</p>
-<h2 id="1-1-技术准备"><a href="#1-1-技术准备" class="headerlink" title="1.1    技术准备"></a>1.1    技术准备</h2><h3 id="1-1-0-Error-and-Exception"><a href="#1-1-0-Error-and-Exception" class="headerlink" title="1.1.0 Error and Exception"></a>1.1.0 Error and Exception</h3><p><em>Error</em>: 由于内部因素（JVM，硬件）造成的问题，代码中不应该设计处理Error，而是考虑在遇到Error时让程序优雅退出（比如隔一段时间自动备份数据）</p>
-<p><em>Exception</em>：程序运行时出现的问题，可以捕获，可以处理，这些问题也可以有程序编写者来定义。</p>
-<p><em>checked unchecked</em>：编译器会检查代码中是否抛出或处理了可能出现的checked异常，常见的例子如IOException，常用于程序处理可能发生的，设计者预料到的错误。而uncheck异常编译时不会要求使用trycatch来处理。Exception类本身是一种check异常，新派生的子类往往也是check异常，但是Exception拥有子类RuntimeException，从中派生出的则为unchecked。</p>
-<p><em>RuntimeException</em>：运行时出现的异常，由于源代码的BUG产生，而非程序编写者自己设计。是程序中的潜在BUG，新创建的unchecked异常均需要从RuntimeException中派生出子类，常见如以非法参数调用一些java自带的方法。</p>
-<p><em>Five keywords</em>: </p>
-<p>　　<em>try catch finally</em> ：见如下代码示例</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">  <span class="comment">// 调用可能抛出异常的方法</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(异常类型<span class="number">1</span> 异常的变量名<span class="number">1</span>)&#123;</span><br><span class="line">  <span class="comment">// 处理异常类型1</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(异常类型<span class="number">2</span> 异常的变量名<span class="number">2</span>)&#123;</span><br><span class="line">  <span class="comment">// 处理异常类型2</span></span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">  <span class="comment">// 无论是否发生异常，均要执行该部分代码，用于如关闭文件流等操作。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>　　<em>throw and throws</em>:前者抛出异常，后者声明抛出异常。</p>
-<h3 id="1-1-1-assert"><a href="#1-1-1-assert" class="headerlink" title="1.1.1　assert"></a>1.1.1　assert</h3><p>断言，轻量级的异常，较为方便的检测异常情况并返回，用于程序编写时预防BUG，检查方法后置条件，检测ADT的RI等，用于检测程序编写者自己的问题。实际运行中可能并未启用断言，因此不要用它来检测Client端参数等外部条件。</p>
-<p>与exception相比，exception重视交互，比如检查方法的前置条件，返回参数错误的异常，作为checked异常，Client端需要捕获并处理，要求重新提供参数。</p>
-<h3 id="1-1-2-spotbugs"><a href="#1-1-2-spotbugs" class="headerlink" title="1.1.2　spotbugs"></a>1.1.2　spotbugs</h3><p>一个静态代码检查工具，内置一些BUG代码的模板，可以检查代码中是否有一些常见的错误。</p>
-<h3 id="1-1-3-日志"><a href="#1-1-3-日志" class="headerlink" title="1.1.3　日志"></a>1.1.3　日志</h3><p>这里使用java自身提供的logging完成日志功能，可以生成日志，记录代码运行中的操作、异常情况等重要信息，便于事后查看或调试程序。</p>
-<h3 id="1-1-4-Debug-and-Test"><a href="#1-1-4-Debug-and-Test" class="headerlink" title="1.1.4　Debug and Test"></a>1.1.4　Debug and Test</h3><p>我们尝试用Denfensive Programming和Testing来避免和发现BUG，当然，很多时候这不够。就需要进入快乐的debug过程了。</p>
-<h4 id="debug过程："><a href="#debug过程：" class="headerlink" title="debug过程："></a>debug过程：</h4><ol>
-<li><p><strong>复现(reproduce)</strong>：找到能够方便地、可靠地使问题重复出现的方法。最重要。</p>
-</li>
-<li><p><strong>诊断/定位(diagnose/locating)</strong>：通过假设-验证的方式找出bug的出现原因。使用例如运行不同的测试样例，输出调试和断言，断点，更改实现（更换线程安全类、更换JDK等），<strong>不同策略的目标要清晰</strong>。</p>
-<p>一些策略：测量（Instrumentation），分治（ Divide and Conquer ），切片（ Slicing）,寻找差异（ Focus on difference）（即Delta Debugging，基于差异的调试，利用git等工具查看正确与错误版本之间有区别的代码行。一个好例子是：有两个测试用例，分别通过/未通过。通过查找二者所覆盖的代码之间的差异，快速定位出可能造成bug的代码行。）符号化测量（Symbolic Debugging）（采用变量符号，写出表达式，判断执行情况。）</p>
-<p>Debuuger调试器，单步跟踪调试（耗费时间），学习他人的经验。</p>
-</li>
-<li><p><strong>修复(fix)</strong>：修改源码以修复问题，同时维持软件整体的质量不变或提升软件质量。与refactoring相比，会改变程序本身的行为。<strong>一次修一个</strong></p>
-</li>
-<li><p><strong>反思(reflect)</strong>：从该bug中寻找原因，学经验。<del>假装下次不会再犯。</del></p>
-</li>
-</ol>
-<h3 id="1-1-5-Test"><a href="#1-1-5-Test" class="headerlink" title="1.1.5　Test"></a>1.1.5　Test</h3><p><em>Unit Testing</em>：单元测试，一个function，一个class，一点点测试。</p>
-<p><em>Intergration testing</em>：集成测试，一些类，一些包，一些组件，一些子系统，一起测试。</p>
-<p><em>System testing</em>：一个系统，最后的测试。</p>
-<p><em>Regression testing</em>：每次更新版本后，重新做一遍之前已有的测试，保证代码没有因为版本更新出现新的问题。</p>
-<p><em>Coverage</em>:覆盖率，表征测试的完备程度，</p>
-<h4 id="覆盖率分类："><a href="#覆盖率分类：" class="headerlink" title="覆盖率分类："></a>覆盖率分类：</h4><ol>
-<li><p><strong>语句覆盖（Statement Coverage）</strong>：在测试时，运行被测程序后，程序中被执行的可执行语句的比率。运行的代码行数与整体的比例。</p>
-</li>
-<li><p><strong>分支覆盖率（Branch Coverage）</strong>：在测试时，运行被测程序后，程序中所有判断语句的取真分支和取假分支被执行到的比率。</p>
-</li>
-<li><p><strong>条件覆盖（Condition Coverage）</strong>：在测试时，运行被测程序后，程序中所有判断语句中每个条件的可能取值（真值和假值）出现过的比率。</p>
-</li>
-</ol>
-<p>越严格的覆盖率越难以提升。</p>
-<p>边界值，等价类划分之前已经涉及到。</p>
-<p>可以采用笛卡尔积或者单纯只是覆盖每个取值的方式进行测试。</p>
-<p>前者：测试完备，但用例数量多，测试代价高</p>
-<p>后者：测试用例少，代价低，但测试覆盖度未必高。</p>
-<h1 id="2-Lab4实验细节记录"><a href="#2-Lab4实验细节记录" class="headerlink" title="2　Lab4实验细节记录"></a>2　Lab4实验细节记录</h1><h2 id="2-0-输入检查"><a href="#2-0-输入检查" class="headerlink" title="2.0　输入检查"></a>2.0　输入检查</h2><p>实验要求中检查输入文件，并对于不合理的输入抛出异常，需要构造很多错误输入，抛出对应异常，异常中需要存储一些信息。</p>
-<h2 id="2-1-spotbug"><a href="#2-1-spotbug" class="headerlink" title="2.1 　spotbug"></a>2.1 　spotbug</h2><p>IDEA没有这插件，只有老版本的findbug。</p>
-<h2 id="2-2-给定程序Debug"><a href="#2-2-给定程序Debug" class="headerlink" title="2.2　给定程序Debug"></a>2.2　给定程序Debug</h2><p>阅读别人的代码有点痛苦，所以要耐下性子。</p>
-<h1 id="3-总结"><a href="#3-总结" class="headerlink" title="3　总结"></a>3　总结</h1><p>&emsp;&emsp;第四次实验，工作量还好，因为种种原因仍然赶着DDL提交，写起来不太顺利，需要各种挑战自己的代码。</p>
-<p>&emsp;&emsp;有任何问题欢迎联系我，博客侧边栏最下方书信图标有联系方式。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件构造</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">lab4</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/28/2019秋季学期软件构造-Lab-4总结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019秋季学期软件构造-Lab-3总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/28/2019秋季学期软件构造-Lab-3总结/">2019秋季学期软件构造-Lab-3总结</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/28/2019秋季学期软件构造-Lab-3总结/" class="archive-article-date">
-  	<time datetime="2019-05-27T16:27:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-28</time>
-</a>
-        
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="0-序言"><a href="#0-序言" class="headerlink" title="0　序言"></a>0　序言</h1><p>&emsp;&emsp;这篇文章是Lab3的实验总结，也作为下一步复习的资料使用。</p>
-<h1 id="1-实验准备阶段"><a href="#1-实验准备阶段" class="headerlink" title="1    实验准备阶段"></a>1    实验准备阶段</h1><h2 id="1-0-Lab3实验准备"><a href="#1-0-Lab3实验准备" class="headerlink" title="1.0    Lab3实验准备"></a>1.0    Lab3实验准备</h2><p>这次实验的要求是设计一套ADT，进而运用到具体应用场景里，那么，首先需要选好场景，然后分析他们的异同。</p>
-<p>这次我选择的是：</p>
-<p>TrackGame</p>
-<p>AtomStructure</p>
-<p>SocialNetworkCircle</p>
-<p>共性：</p>
-<p>轨道系统的基本ADT和API，这部分实验指导中已经给出。</p>
-<p>差异：</p>
-<p>1.TrackGame 中没有中心物体。</p>
-<p>2.TrackGame 需要利用strategy设计模式实现多种编排方案。</p>
-<p>3.AtomStructure 需要实现电子 “跃迁”功能，其中的物体“电子”全部相同。</p>
-<p>4.SocialNetworkCircle 需要提供物体间的关系并计算“信息扩散度”，物体“人”之间的逻辑距离。</p>
-<h2 id="1-1-技术准备"><a href="#1-1-技术准备" class="headerlink" title="1.1    技术准备"></a>1.1    技术准备</h2><h3 id="1-1-0-正则表达式解析输入"><a href="#1-1-0-正则表达式解析输入" class="headerlink" title="1.1.0　 正则表达式解析输入"></a>1.1.0　 正则表达式解析输入</h3><p><em>正则表达式</em> :值得研究的内容在形式语言与自动机课程中已经学习，实际应用中，需要考虑一些小的细节。比如说贪婪匹配，比如分组加括号获取内容。</p>
-<h3 id="1-1-1-Java与面向对象"><a href="#1-1-1-Java与面向对象" class="headerlink" title="1.1.1 　Java与面向对象"></a>1.1.1 　Java与面向对象</h3><p><em>抽象类与接口</em>：抽象类是更加笨重的接口，包含接口所没有的构造方法，成员变量，非抽象方法，静态方法（JDK1.8前），但正因如此一个具体类只能选择一个抽象类来完成继承，而接口可以实现多个。或者说，抽象类更像是pre-class。</p>
-<p><em>重写</em>：”<strong>外壳不变，内核重写</strong>“子类对父类的允许访问的方法的实现进行重新编写，但是儿子就是儿子，不能超出父亲的限制，需要遵循父类的方法签名。</p>
-<p><em>重载</em>：同一个类内，方法名字相同，但是参数不同，返回类型可以不同（但不能仅有返回不同），异常可以更多，需要独特的方法签名，典型例子是构造函数。</p>
-<h5 id="重写与重载的比较"><a href="#重写与重载的比较" class="headerlink" title="重写与重载的比较"></a>重写与重载的比较</h5><table>
-<thead>
-<tr>
-<th></th>
-<th>Overloading</th>
-<th>Overriding</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>参数列表</td>
-<td>必须改变</td>
-<td>不可改变</td>
-</tr>
-<tr>
-<td>返回类型</td>
-<td>可以改变</td>
-<td>不可改变</td>
-</tr>
-<tr>
-<td>抛出异常</td>
-<td>可以改变</td>
-<td>可以减少，但不得增加或扩大范围</td>
-</tr>
-<tr>
-<td>访问控制</td>
-<td>可以改变</td>
-<td>可以放宽，但不得增加限制</td>
-</tr>
-<tr>
-<td>调用选择</td>
-<td>编译时根据参数列表确定</td>
-<td>运行时根据对象实际类型确定</td>
-</tr>
-</tbody>
-</table>
-<p><em>多态</em>：多态需要满足子类继承父类，重写同名函数，父类引用指向子类对象。例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Parent  p = <span class="keyword">new</span> Child();</span><br><span class="line">p.work()<span class="comment">//这里会调用子类的work方法，但是前提是父类拥有同名work方法，否则会报编译错误</span></span><br></pre></td></tr></table></figure>
-<p><em>泛型</em>：使方法或类可以在不同的具体的数据类型下运行。</p>
-<p><em>协变逆变</em>：在Java中几乎可以视作使用 ? extends 和 ? super</p>
-<h3 id="1-1-2-GUI设计"><a href="#1-1-2-GUI设计" class="headerlink" title="1.1.2 　GUI设计"></a>1.1.2 　GUI设计</h3><p><em>GUI</em>：图形化界面，在本次实验中，我所需要绘制的图形只有三种，空心圆环（表征轨道），实心圆点（表征中心物体和轨道上的物体），线段（表征物体间的关系）。因此GUI实现起来并不复杂，但是遗憾的是JAVA原生的库用起来实在是不太方便。</p>
-<h3 id="1-1-3-一些设计模式"><a href="#1-1-3-一些设计模式" class="headerlink" title="1.1.3 　一些设计模式"></a>1.1.3 　一些设计模式</h3><p><em>工厂方法</em>：静态工厂就是将方法封装至静态工厂类中，直接使用即可产生新的对象。而常用的工厂模式，一般需要一个特定的工厂类负责创建对象。在创建时，传入参数，由工厂类来返回要产生的具体对象，而该对象在Client端可以用抽象对象的引用来指向具体对象。</p>
-<p><em>抽象工厂</em>：这里的具体工厂的更加复杂，一般代表一个产品族，里面可以生产多个产品，类似于builder模式，有多个类别的抽象对象可以生产。</p>
-<p><em>builder模式</em>：对象的构建及初始化过程极为繁杂时，可将构建及初始化过程放入单独的构建器类中，由构建器类负责构建该对象。特征是使用时可以链式调用。另外，可以使用lombok库的@Builder来方便的实现builder设计模式</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PrivateKeyDecryptParam param = <span class="keyword">new</span> PrivateKeyDecryptParam.Builder()</span><br><span class="line">                                           .uAppId(uAppId)</span><br><span class="line">                                           .containerId(containerId)</span><br><span class="line">                                           .cipher(cipher)</span><br><span class="line">                                           .signFlag(signFlag)</span><br><span class="line">                                           .build();</span><br></pre></td></tr></table></figure>
-<p><em>Iterator</em>：迭代器模式，按照java标准，每个iterator类实例都是一个迭代器，用于遍历创建迭代器时对象内部的内容，需要实现hasNext方法判断游标是否可以继续移动和next方法移动下标。</p>
-<p><em>facade</em>：外观模式，将具体的操作封装在一个具体的facade类内，Client只需要获取facade实例，调用facade提供的方法即可，具体的实现在facade类中完成，用于设计API。</p>
-<p><em>strategy</em>：策略模式，首先设计一个strategy接口，包含策略方法，实现具体的strategy类，提供策略方法，用于完成一些工作。在具体的方法实现中加入一个strategy类参数，运用委托模式的思想，将一些具体的工作通过调用strategy类的方法的方式来实现，这样如果想继续增加更多的工作方式，不需要修改具体的方法实现，而增添新的strategy类，并在调用具体方法时使用新的strategy类即可。</p>
-<p><em>Momento&amp;state</em>：备忘录和状态模式，所谓状态模式，就是将一个复杂的类的一些重要特征，抽象总结为一个具体的状态类，存储信息用于检查或恢复。而恢复的手段就是备忘录模式，该模式存储之前由状态模式抽象出的复杂对象的状态，在需要的时候恢复状态，就像是时间倒流。另外需要与原型模式相区分，备忘录模式恢复的只是部分状态，而原型模式存储了整个对象的信息，是一种深拷贝，花销较大。</p>
-<h1 id="2-Lab3实验细节记录"><a href="#2-Lab3实验细节记录" class="headerlink" title="2    Lab3实验细节记录"></a>2    Lab3实验细节记录</h1><h2 id="2-0-Git"><a href="#2-0-Git" class="headerlink" title="2.0　Git"></a>2.0　Git</h2><p>本实验涉及到git分支的一些操作，网上有一些非常经典的图来描述各个git操作的意义，在此不再赘述。另外，在本实验中得到一个教训，切换、更新分支时，需要检查workspace，最好做本地备份，防止切换分支等操作后丢失当前的文件改动。可以在github上insight界面查看git仓库分支结构。</p>
-<h2 id="2-1-重构"><a href="#2-1-重构" class="headerlink" title="2.1　重构"></a>2.1　重构</h2><p>实验中经常有写一半推到重来的情况，很头疼，但也促使设计ADT时更加谨慎。</p>
-<h2 id="2-2-Test"><a href="#2-2-Test" class="headerlink" title="2.2 　Test"></a>2.2 　Test</h2><p>Test的优先编写非常有效，可以促使设计方法时明确而间接。</p>
-<h1 id="3-总结"><a href="#3-总结" class="headerlink" title="3　总结"></a>3　总结</h1><p>&emsp;&emsp;第三次实验，工作量非常大，因为种种原因也是赶着DDL提交，但是收获也很多，很有成就感。</p>
-<p>&emsp;&emsp;有任何问题欢迎联系我，博客侧边栏最下方书信图标有联系方式。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件构造</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">lab3</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/28/2019秋季学期软件构造-Lab-3总结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019秋季学期软件构造-Lab-2总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/22/2019秋季学期软件构造-Lab-2总结/">2019秋季学期软件构造 Lab-2总结</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/22/2019秋季学期软件构造-Lab-2总结/" class="archive-article-date">
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/03/22/2019秋季学期软件构造-Lab-2总结/" class="archive-article-date">
   	<time datetime="2019-03-22T04:18:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-22</time>
 </a>
-        
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="0-序言"><a href="#0-序言" class="headerlink" title="0    序言"></a>0    序言</h1><p>&emsp;&emsp;这篇文章一方面是自我的实验总结，另一方面希望给予还没有开始lab2的同学一个指导。</p>
-<h1 id="1-实验准备阶段"><a href="#1-实验准备阶段" class="headerlink" title="1    实验准备阶段"></a>1    实验准备阶段</h1><h2 id="1-0-搞清楚那些奇奇怪怪的名词"><a href="#1-0-搞清楚那些奇奇怪怪的名词" class="headerlink" title="1.0    搞清楚那些奇奇怪怪的名词"></a>1.0    搞清楚那些奇奇怪怪的名词</h2><p>&emsp;&emsp;为了搞清楚这些名词你需要在这个博客内阅读</p>
-<p>&emsp;&emsp;<a href="https://www.cnblogs.com/liqiuhao/" target="_blank" rel="noopener">MIT readings的中文版</a></p>
-<p>&emsp;&emsp;或者选择阅读老师上课所用的PPT</p>
-<p>&emsp;&emsp;以下是自我总结</p>
-<p>&emsp;&emsp;<em>spec</em>(规约/规格)：提供客户与开发者沟通的桥梁。</p>
-<p>&emsp;&emsp;<em>pre-condition、post-condition</em>（前置条件、后置条件）：提供一组蕴含关系，客户需要满足pre-condition，当pre-condition满足时，开发者保证post-condition实现。如果pre-condition不满足，客户需要为此承担责任，所得到的反馈由开发者自由决定。如果post-condition不满足，说明开发者所实现的代码有bug，需要开发者重新debug。</p>
-<p>&emsp;&emsp;测试优先开发：首先编写测试样例，之后实现方法，这样可以在实现方法前提前考虑各种边界、特殊情况。</p>
-<p>&emsp;&emsp;泛型：一般代码中变量的数据类型是固定的，我们可以给予客户更大的自由，让数据类型也可以自由选择（尽管有时我们会对选择的范围加以限制）。增强代码复用性。不过也会因为所选择的数据类型的不同，产生新的bug。而且泛型只有在运行时才能确定的缘故，无法在静态检查阶段发现一些bug。</p>
-<p>&emsp;&emsp;<em>Representation</em>（表示）：使用的具体的较底层的用于实现该类的属性。</p>
-<p>​    <em>Abstraction Function/AF</em> (抽象函数) ：一个映射，由使用的属性映射到ADT中具体的抽象事物。</p>
-<p>&emsp;&emsp;<em>Representation Invariants/RI</em>（表示不变量） ：对于所使用的用于实现类的属性，有什么需要该属性一定满足的要求。比如有序，无重复等等。</p>
-<p>&emsp;&emsp;<em>Safety From Rep Exposure</em>（表示暴露安全性）：防止表示泄露所采取的措施，目前用到的有private final属性，不可变类，以及Defensive Copy（防御性拷贝）策略。</p>
-<p>&emsp;&emsp;<em>mutable/immutable</em>（可变性/不变性）：指当属性实例化后，能否再次改变实例化的对象的内部表示。尽量使用immutable的类。</p>
-<h1 id="2-Lab2简要分析"><a href="#2-Lab2简要分析" class="headerlink" title="2    Lab2简要分析"></a>2    Lab2简要分析</h1><h2 id="2-1-Poetic-Walks"><a href="#2-1-Poetic-Walks" class="headerlink" title="2.1    Poetic Walks"></a>2.1    Poetic Walks</h2><p>&emsp;&emsp;考验你对之前那些概念的熟悉程度，写起来代码比注释好写，注意官方作业的要去。</p>
-<p>&emsp;&emsp;其中实现的用于在图中添加边的set函数相对复杂一些，需要仔细斟酌测试。</p>
-<p>&emsp;&emsp;学习一下泛型。</p>
-<h2 id="2-2-Re-implement-Social-Networks"><a href="#2-2-Re-implement-Social-Networks" class="headerlink" title="2.2    Re-implement Social Networks"></a>2.2    Re-implement Social Networks</h2><p>&emsp;&emsp;复用之前写好的图结构实现之前实现过的任务。</p>
-<p>&emsp;&emsp;读MIT的实验要求时可能觉得他们有些啰嗦，对于一些规范上的东西写的非常详尽，这挺好的<del>虽然TA八成没在意</del>。</p>
-<p>&emsp;&emsp;这么一写就显得它是个简单任务了。</p>
-<h2 id="2-3-Playing-Chess"><a href="#2-3-Playing-Chess" class="headerlink" title="2.3    Playing Chess"></a>2.3    Playing Chess</h2><p>&emsp;&emsp;从零开始设计实现ADT，没有什么特别严格的要求，可以自由发挥。相对来说写起来比较辛苦。</p>
-<p>&emsp;&emsp;应该有很多种方案解决这个问题。</p>
-<p>&emsp;&emsp;我本人的Action类都是静态方法，也没有使用什么接口之类的，自底向上开发。</p>
-<p>&emsp;&emsp;自顶向下应该也是个好策略，先考虑需要用什么，再去实现，另外实现接口来区分两类棋应该也不错。</p>
-<p>&emsp;&emsp;不过该任务中两种棋的操作不复杂，也不需要考虑规则，我就偷了懒，没有利用接口。</p>
-<h2 id="2-4-Test-Eclemma"><a href="#2-4-Test-Eclemma" class="headerlink" title="2.4    Test  Eclemma"></a>2.4    Test  Eclemma</h2><p>&emsp;&emsp;eclispe如果版本够新是默认有eclemma的。</p>
-<p>&emsp;&emsp;使用eclemma运行测试代码能够查看代码覆盖率。</p>
-<p>&emsp;&emsp;可以根据具体的代码覆盖情况，增加测试样例。</p>
-<h1 id="3-总结"><a href="#3-总结" class="headerlink" title="3    总结"></a>3    总结</h1><p>&emsp;&emsp;第二次实验，难度跟上次差不多，只不过编码量大了些。因为不太熟练相关概念，以及需要做好许多代码以外的部分，因此实验跨度一周。对于新人来说，两周半应该是设定给自己的DDL，否则拖到后面会很难受，这个实验需要仔细斟酌的地方非常多。</p>
-<p>&emsp;&emsp;有任何问题欢迎联系我，博客侧边栏最下方书信图标有联系方式。</p>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/03/22/2019秋季学期软件构造-Lab-2总结/">2019秋季学期软件构造 Lab-2总结</a>
+    </h1>
+  
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -626,164 +190,19 @@
 		</ul>
 	</div>
 
-      
+          
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/22/2019秋季学期软件构造-Lab-2总结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-2019秋季学期软件构造-Lab-1总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
+    </div></section>
+  
+
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/05/2019秋季学期软件构造-Lab-1总结/">2019秋季学期软件构造 Lab-1总结</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/05/2019秋季学期软件构造-Lab-1总结/" class="archive-article-date">
-  	<time datetime="2019-03-05T14:31:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-05</time>
-</a>
-        
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="0-序言"><a href="#0-序言" class="headerlink" title="0    序言"></a>0    序言</h1><p>&emsp;&emsp;这篇文章一方面是自我的实验总结，另一方面希望给予寒假没有预习的同学一个探路式的指导。</p>
-<h1 id="1-实验准备阶段"><a href="#1-实验准备阶段" class="headerlink" title="1    实验准备阶段"></a>1    实验准备阶段</h1><h2 id="1-0-梯子"><a href="#1-0-梯子" class="headerlink" title="1.0    梯子"></a>1.0    梯子</h2><p>&emsp;&emsp;google、github、piazza或者一些软件库之类的国外网站有时候不太稳定，你需要一个梯子才能稳定访问。如果不知道什么是梯子的，我建议<del>退学</del><a href="https://github.com/getlantern/download/wiki" target="_blank" rel="noopener">Lantern</a>。</p>
-<h2 id="1-1-JDK"><a href="#1-1-JDK" class="headerlink" title="1.1    JDK"></a>1.1    JDK</h2><p>&emsp;&emsp;你需要一个完整的JDK，并且保证所需要的jar包完整，实验完成后在线build时发现了自己JDK竟然只剩下JRE了，其他部分莫名其妙的残缺了。配环境变量可能是许多新人的障碍，请多加努力搜索。</p>
-<h2 id="1-2-Eclipse"><a href="#1-2-Eclipse" class="headerlink" title="1.2    Eclipse"></a>1.2    Eclipse</h2><p>&emsp;&emsp;Jetbrians的产品应该会比Eclipse更加现代化一点，Eclipse显得有些笨重了，不过幸运的是选择Eclipse相关教程会比较多，方便添加插件以及Java新人第一次上手。推荐checkstyle插件，非常适合<del>治愈强迫症</del>静态检查代码规范，安装方式请自行搜索。</p>
-<p>&emsp;&emsp;建议设置Eclipse编码为UTF-8，具体方式请百度。</p>
-<p>&emsp;&emsp;Eclipse显示中文注释貌似有问题，建议写英文，有效抑制写过多废话的冲动<del>以及练习Chinglish</del>。</p>
-<h2 id="1-3-Git"><a href="#1-3-Git" class="headerlink" title="1.3    Git"></a>1.3    Git</h2><p>&emsp;&emsp;<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">Git教程</a></p>
-<p>&emsp;&emsp;建议读完除分支管理和标签管理的部分。附带一提，他的python教程也很好，javaSE教程收费我没看过，但是看起来和软件构造这门课的契合度很高。</p>
-<p>&emsp;&emsp;Github好用而重要，<del>你甚至可以找到public仓库里的往届学长学姐的火炬</del>。</p>
-<p>&emsp;&emsp;对了，请认真阅读cms上的实验环境与实验提交指南，按上面要求一步步注册github classroom，不要再让老师费心<del>也不要用冒用他人学号</del>。    </p>
-<h2 id="1-4-Junit"><a href="#1-4-Junit" class="headerlink" title="1.4    Junit"></a>1.4    Junit</h2><p>&emsp;&emsp;Eclipse如果你下载的新版本，应该带的有Junit，然后自行搜索如何加载Junit，建议使用Junit4，Junit5的依赖在build时很麻烦我<del>反正是没成功</del>。</p>
-<h2 id="1-5-报告"><a href="#1-5-报告" class="headerlink" title="1.5    报告"></a>1.5    报告</h2><p>&emsp;&emsp;报告请先看完再写，有一个工作记录表，需要实时填写。</p>
-<h1 id="2-Lab1简要分析"><a href="#2-Lab1简要分析" class="headerlink" title="2    Lab1简要分析"></a>2    Lab1简要分析</h1><h2 id="2-0-英语"><a href="#2-0-英语" class="headerlink" title="2.0    英语"></a>2.0    英语</h2><p>&emsp;&emsp;MIT和CMU的老师英文很好，所以实验要求读起来其实挺轻松的，如果觉得不轻松，请使用chrome浏览器自带翻译，效果拔群<del>甚至好于HIT老师的中文</del>。</p>
-<h2 id="2-1-Magic-Square"><a href="#2-1-Magic-Square" class="headerlink" title="2.1    Magic Square"></a>2.1    Magic Square</h2><p>&emsp;&emsp;考验你对Java语言的熟悉程度，唯一的难点可能是读入。</p>
-<p>&emsp;&emsp;任务要求你区分是否有文本没有使用\t划分，split（“\\t”）后，可以直接扫一下每一部分判断，但是也可以学习一个正则表达式，后面也有用得到的地方，能让你的代码没有那么丑。</p>
-<h2 id="2-2-Turtle"><a href="#2-2-Turtle" class="headerlink" title="2.2    Turtle"></a>2.2    Turtle</h2><p>&emsp;&emsp;学过LOGO语言的可能对海龟这东西很熟悉。</p>
-<p>&emsp;&emsp;读MIT的实验要求时可能觉得他们有些啰嗦，对于一些规范上的东西写的非常详尽，这挺好的<del>虽然TA八成没在意</del>。</p>
-<p>&emsp;&emsp;任务仅有的小难点在于凸包算法部分，个人艺术部分可以发挥你的艺术才能（或者像我一样发挥毫无艺术感的懒惰）。</p>
-<h2 id="2-3-Social-Network"><a href="#2-3-Social-Network" class="headerlink" title="2.3    Social Network"></a>2.3    Social Network</h2><p>&emsp;&emsp;数据结构试验的java版，可以让你更好的熟悉java的OO特性。</p>
-<p>&emsp;&emsp;注意不要写的太C语言了，注意写javadoc<del>虽然TA八成不看</del>。</p>
-<h2 id="2-4-Tweet-Tweet"><a href="#2-4-Tweet-Tweet" class="headerlink" title="2.4    Tweet Tweet"></a>2.4    Tweet Tweet</h2><p>&emsp;&emsp;建议使用正则表达式优化代码。</p>
-<p>&emsp;&emsp;提取@到的人时，注意考虑一条tweet开头就@他人的情况。</p>
-<p>&emsp;&emsp;这里可能会用到Collection.sort，注意实现Compareable接口时的严谨要求。</p>
-<h1 id="3-在线build"><a href="#3-在线build" class="headerlink" title="3    在线build"></a>3    在线build</h1><p>&emsp;&emsp;这可能是最麻烦的部分，主要是出现的问题你只能通过搜索解决（还经常搜不到）。</p>
-<h2 id="3-0-前期准备"><a href="#3-0-前期准备" class="headerlink" title="3.0    前期准备"></a>3.0    前期准备</h2><p>&emsp;&emsp;首先你要能在你的IDE里将项目结构组织好，将四个任务集中在一个项目里，保证添加了依赖库可以正常运行。保证提交了符合实验要求的目录结构的代码。</p>
-<p>&emsp;&emsp;你需要使用：<a href="https://www.travis-ci.com/" target="_blank" rel="noopener">travis-ci.com</a>（注意后缀不是org）</p>
-<p>&emsp;&emsp;这个网站才可以在线build你的在github classroom中的私有库，另外第一次打开时可能显示不出来你的私有仓库，你可能需要同步一下github，或者等一段时间。</p>
-<p>&emsp;&emsp;<a href="https://www.liaoxuefeng.com/article/0014631488240837e3633d3d180476cb684ba7c10fda6f6000" target="_blank" rel="noopener">Travis简要介绍</a>    </p>
-<h2 id="3-1-Maven"><a href="#3-1-Maven" class="headerlink" title="3.1    Maven"></a>3.1    Maven</h2><p>&emsp;&emsp;<a href="https://blog.csdn.net/qq_37487121/article/details/79506038" target="_blank" rel="noopener">学长的火炬</a></p>
-<p>&emsp;&emsp;这位16学长写的很好，我补充一些他缺失的细节。</p>
-<p>&emsp;&emsp;①Eclipse自动生成的pom.xml与文章中的略有不同，一开始是没有dependency标签的，需要自己添加，注意区分异同，并自行搜索网上格式范例添加标签。Eclipse如何生成pom.xml请自行百度。</p>
-<p>&emsp;&emsp;②在pom.xml中编写依赖时，Junit的格式建议使用如下的形式</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span>	<span class="comment">&lt;!-- 这里有变动 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>​    另外，Junit在本地第一次build时可能会出问题，需要进入Maven的个人仓库中删除重新下载。</p>
-<p>​    ③编码格式问题</p>
-<p>​    首先最好保证Eclipse的编码格式</p>
-<p>​    以下部分进行改动</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">encoding</span>&gt;</span>utf-8<span class="tag">&lt;/<span class="name">encoding</span>&gt;</span> <span class="comment">&lt;!-- 这里加一句 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;以及在project标签内添加以下部分</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">		UTF-8</span><br><span class="line">	<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;即可解决。</p>
-<h1 id="4-总结"><a href="#4-总结" class="headerlink" title="4    总结"></a>4    总结</h1><p>&emsp;&emsp;第一次实验，难度并不大，但因为不太熟练相关工具和实验环境，以及需要做好许多代码以外的部分，实验跨度九天，对于新人来说，两周应该是设定给自己的DDL，否则拖到后面会很难受，这份实验需要慢工出细活。</p>
-<p>&emsp;&emsp;有任何问题欢迎联系我，博客侧边栏最下方书信图标有联系方式。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件构造</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">lab1</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/05/2019秋季学期软件构造-Lab-1总结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-  
 
 
           </div>
@@ -810,10 +229,10 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
+		isHome: false,
 		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: false,
