@@ -6,19 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 数据结构，栈 | FETS&#39;s blog</title>
+  <title>二维卷积的一点总结 | FETS&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="FETS&apos;s CODE blog">
-<meta name="keywords" content="I just want to share something.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="FETS&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/tags/数据结构，栈/index.html">
+  <meta name="description" content="0    序言二维卷积是一个初学起来令人困惑的东西，而且卷积神经网络中的卷积也与数学通常定义的卷积有所不同。 我在学习该部分知识的时候遇到了许多困惑，因此下面一点点总结一下自己所学的知识防止出错。 1    卷积的意义主要参考：如何通俗易懂的解释卷积(知乎问题) 1.0    卷积的数学含义$$(f * g)(n)=\int_{-\infty}^{\infty} f(\tau) g(n-\tau)">
+<meta name="keywords" content="CNN,深度学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二维卷积的一点总结">
+<meta property="og:url" content="http://yoursite.com/2019/09/12/二维卷积的一点总结/index.html">
 <meta property="og:site_name" content="FETS&#39;s blog">
-<meta property="og:description" content="FETS&apos;s CODE blog">
+<meta property="og:description" content="0    序言二维卷积是一个初学起来令人困惑的东西，而且卷积神经网络中的卷积也与数学通常定义的卷积有所不同。 我在学习该部分知识的时候遇到了许多困惑，因此下面一点点总结一下自己所学的知识防止出错。 1    卷积的意义主要参考：如何通俗易懂的解释卷积(知乎问题) 1.0    卷积的数学含义$$(f * g)(n)=\int_{-\infty}^{\infty} f(\tau) g(n-\tau)">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-de38ad49f9a1c99dafcc5d0a7fcac2ef_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-5d5ca564c8f0eaba9cd9865a9c944fbb_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-847a8d7c444508862868fa27f2b4c129_hd.jpg">
+<meta property="og:updated_time" content="2019-09-12T06:24:02.100Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FETS&#39;s blog">
-<meta name="twitter:description" content="FETS&apos;s CODE blog">
+<meta name="twitter:title" content="二维卷积的一点总结">
+<meta name="twitter:description" content="0    序言二维卷积是一个初学起来令人困惑的东西，而且卷积神经网络中的卷积也与数学通常定义的卷积有所不同。 我在学习该部分知识的时候遇到了许多困惑，因此下面一点点总结一下自己所学的知识防止出错。 1    卷积的意义主要参考：如何通俗易懂的解释卷积(知乎问题) 1.0    卷积的数学含义$$(f * g)(n)=\int_{-\infty}^{\infty} f(\tau) g(n-\tau)">
+<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-de38ad49f9a1c99dafcc5d0a7fcac2ef_hd.jpg">
   
     <link rel="alternative" href="/atom.xml" title="FETS&#39;s blog" type="application/atom+xml">
   
@@ -145,60 +150,227 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-二维卷积的一点总结" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/12/栈和队列的小trick/" class="archive-article-date">
-  	<time datetime="2019-09-12T06:16:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-12</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/12/栈和队列的小trick/">栈和队列的小trick</a>
+    <h1 class="article-title" itemprop="name">
+      二维卷积的一点总结
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/09/12/二维卷积的一点总结/" class="archive-article-date">
+  	<time datetime="2019-09-12T06:13:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-12</time>
+</a>
+        
+      </header>
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="0-序言"><a href="#0-序言" class="headerlink" title="0    序言"></a>0    序言</h1><p>二维卷积是一个初学起来令人困惑的东西，而且卷积神经网络中的卷积也与数学通常定义的卷积<strong>有所不同</strong>。</p>
+<p>我在学习该部分知识的时候遇到了许多困惑，因此下面一点点总结一下自己所学的知识防止出错。</p>
+<h1 id="1-卷积的意义"><a href="#1-卷积的意义" class="headerlink" title="1    卷积的意义"></a>1    卷积的意义</h1><p>主要参考：<a href="https://www.zhihu.com/question/22298352" target="_blank" rel="noopener">如何通俗易懂的解释卷积</a>(知乎问题)</p>
+<h2 id="1-0-卷积的数学含义"><a href="#1-0-卷积的数学含义" class="headerlink" title="1.0    卷积的数学含义"></a>1.0    卷积的数学含义</h2><p>$$<br>(f * g)(n)=\int_{-\infty}^{\infty} f(\tau) g(n-\tau) d \tau<br>$$</p>
+<p>公式（1）即为对函数$f $和函数$g$进行卷积的一般定义，如果不考虑奇怪的$n-\tau$的话，好像就是一个特殊的加权平均，看起来并没有什么特殊的。事实上这也是卷积神经网络中用到卷积的思想之一（类似于attention机制）。</p>
+<h2 id="1-1-卷积的物理含义"><a href="#1-1-卷积的物理含义" class="headerlink" title="1.1    卷积的物理含义"></a>1.1    卷积的物理含义</h2><p>一维卷积经常用在信号处理中，用于计算信号的延迟累积。假设一个信号发生器每个时刻$t$产生一个信号$x_t$，记该信号的信息量也为$x_t$，其信息的衰减率为$w_k$，即在$k-1$个时间步长后，信息为原来的$w_k$倍。假设$w_1$ = $1$, $w_2$ = $\frac 12$, $w_3$ =$\frac 14$，那么在时刻$t$收到的总信息量$y_t$为当前时刻产生的信息和以前时刻延迟信息的叠加,即：<br>$$<br>\begin{aligned} y_{t} &amp;=1 \times x_{t}+1 / 2 \times x_{t-1}+1 / 4 \times x_{t-2} \ &amp;=w_{1} \times x_{t}+w_{2} \times x_{t-1}+w_{3} \times x_{t-2} \ &amp;=\sum_{k=1}^{3} w_{k} \cdot x_{t-k+1} \end{aligned}<br>$$<br>我们把$w1, w2, · · ·$ 称为滤波器（Filter）或卷积核（Convolution Kernel）。假设滤波器长度为$m$，它和一个信号序列$x1, x2, · · ·$ 的卷积为<br>$$<br>y_{t}=\sum_{k=1}^{m} w_{k} \cdot x_{t-k+1}<br>$$<br>记为<br>$$<br>\mathbf{y}=\mathbf{w} \otimes \mathbf{x}<br>$$<br>这样就可以解释之前数学公式定义中奇怪的$n-\tau$了，因为实际上这是在计算时间$n$时，时刻$\tau$时的发射的信号，在经过了$n-\tau$后，所应该获取的加权，也就是衰减的程度。</p>
+<p>另外，所谓卷积的卷字也是出自这里，因为信号对应的衰减函数的自变量需要通过被$n$减去的形式来卷到另一边来对应，具体可以参考以下三张图片。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-de38ad49f9a1c99dafcc5d0a7fcac2ef_hd.jpg" alt="img"></p>
+<p><img src="https://pic4.zhimg.com/80/v2-5d5ca564c8f0eaba9cd9865a9c944fbb_hd.jpg" alt="img"></p>
+<p><img src="https://pic4.zhimg.com/80/v2-847a8d7c444508862868fa27f2b4c129_hd.jpg" alt="img"></p>
+<h1 id="2-二维卷积"><a href="#2-二维卷积" class="headerlink" title="2　二维卷积"></a>2　二维卷积</h1><p>主要参考：<a href="https://blog.csdn.net/hs_hss/article/details/75676202" target="_blank" rel="noopener">二维卷积讲解</a>（原文有一个笔误，评论区有指出）</p>
+<p>大部分内容直接阅读即可，这里记录一些体会。</p>
+<h2 id="2-0-翻转的卷积核"><a href="#2-0-翻转的卷积核" class="headerlink" title="2.0 翻转的卷积核"></a>2.0 翻转的卷积核</h2><p><a href="https://www.jianshu.com/p/8dfe02b61686" target="_blank" rel="noopener">卷积核为什么要翻转</a></p>
+<p>所谓卷积核的翻转，是实际计算时所用的，而在用公式运算时是不需要的。</p>
+<p>按照公式，一点点乘上去计算卷积，它实际上等价于，卷积核翻转后，再去作为一个窗口在被卷积矩阵上对应加权求和。</p>
+<p>具体原因推导例子参考上文所给链接。</p>
+<h2 id="2-1-卷积神经网络-CNN-中的卷积"><a href="#2-1-卷积神经网络-CNN-中的卷积" class="headerlink" title="2.1 卷积神经网络(CNN)中的卷积"></a>2.1 卷积神经网络(CNN)中的卷积</h2><p><a href="https://blog.csdn.net/weixin_37682263/article/details/87914913" target="_blank" rel="noopener">与标准卷积的比较</a></p>
+<p>这种卷积我们也称之为互相关。</p>
+<ol>
+<li>数学中的卷积，需要“翻转”是根据问题的性质，例如之前信号处理中的对应特定时刻的信号的衰减而确定的</li>
+<li>卷积神经网络中“卷积”，是为了提取图像的特征，其实只借鉴了“加权求和”的特点</li>
+<li>数学中的“卷积核”都是已知的或者给定的，卷积神经网络中“卷积核”本来就是训练得到的参数，不是给定的，根据数据训练学习的，那么翻不翻转还有什么关系呢？因为无论翻转与否对应的都是未知参数！</li>
+</ol>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>要恰饭的呀<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wechatpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">数据结构，栈</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CNN</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/12/二维卷积的一点总结/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/09/12/栈和队列的小trick/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          栈和队列的小trick
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2019/09/12/分布式课程总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">分布式课程总结</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0-序言"><span class="toc-number">1.</span> <span class="toc-text">0    序言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-卷积的意义"><span class="toc-number">2.</span> <span class="toc-text">1    卷积的意义</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-0-卷积的数学含义"><span class="toc-number">2.1.</span> <span class="toc-text">1.0    卷积的数学含义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-卷积的物理含义"><span class="toc-number">2.2.</span> <span class="toc-text">1.1    卷积的物理含义</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-二维卷积"><span class="toc-number">3.</span> <span class="toc-text">2　二维卷积</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-0-翻转的卷积核"><span class="toc-number">3.1.</span> <span class="toc-text">2.0 翻转的卷积核</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-卷积神经网络-CNN-中的卷积"><span class="toc-number">3.2.</span> <span class="toc-text">2.1 卷积神经网络(CNN)中的卷积</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -226,9 +398,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: false,
