@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-de38ad49f9a1c99dafcc5d0a7fcac2ef_hd.jpg">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-5d5ca564c8f0eaba9cd9865a9c944fbb_hd.jpg">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-847a8d7c444508862868fa27f2b4c129_hd.jpg">
-<meta property="og:updated_time" content="2019-09-12T06:24:02.100Z">
+<meta property="og:updated_time" content="2019-09-23T00:16:25.595Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="二维卷积的一点总结">
 <meta name="twitter:description" content="0    序言二维卷积是一个初学起来令人困惑的东西，而且卷积神经网络中的卷积也与数学通常定义的卷积有所不同。 我在学习该部分知识的时候遇到了许多困惑，因此下面一点点总结一下自己所学的知识防止出错。 1    卷积的意义主要参考：如何通俗易懂的解释卷积(知乎问题) 1.0    卷积的数学含义$$(f * g)(n)=\int_{-\infty}^{\infty} f(\tau) g(n-\tau)">
@@ -176,7 +176,7 @@
 <h1 id="1-卷积的意义"><a href="#1-卷积的意义" class="headerlink" title="1    卷积的意义"></a>1    卷积的意义</h1><p>主要参考：<a href="https://www.zhihu.com/question/22298352" target="_blank" rel="noopener">如何通俗易懂的解释卷积</a>(知乎问题)</p>
 <h2 id="1-0-卷积的数学含义"><a href="#1-0-卷积的数学含义" class="headerlink" title="1.0    卷积的数学含义"></a>1.0    卷积的数学含义</h2><p>$$<br>(f * g)(n)=\int_{-\infty}^{\infty} f(\tau) g(n-\tau) d \tau<br>$$</p>
 <p>公式（1）即为对函数$f $和函数$g$进行卷积的一般定义，如果不考虑奇怪的$n-\tau$的话，好像就是一个特殊的加权平均，看起来并没有什么特殊的。事实上这也是卷积神经网络中用到卷积的思想之一（类似于attention机制）。</p>
-<h2 id="1-1-卷积的物理含义"><a href="#1-1-卷积的物理含义" class="headerlink" title="1.1    卷积的物理含义"></a>1.1    卷积的物理含义</h2><p>一维卷积经常用在信号处理中，用于计算信号的延迟累积。假设一个信号发生器每个时刻$t$产生一个信号$x_t$，记该信号的信息量也为$x_t$，其信息的衰减率为$w_k$，即在$k-1$个时间步长后，信息为原来的$w_k$倍。假设$w_1$ = $1$, $w_2$ = $\frac 12$, $w_3$ =$\frac 14$，那么在时刻$t$收到的总信息量$y_t$为当前时刻产生的信息和以前时刻延迟信息的叠加,即：<br>$$<br>\begin{aligned} y_{t} &amp;=1 \times x_{t}+1 / 2 \times x_{t-1}+1 / 4 \times x_{t-2} \ &amp;=w_{1} \times x_{t}+w_{2} \times x_{t-1}+w_{3} \times x_{t-2} \ &amp;=\sum_{k=1}^{3} w_{k} \cdot x_{t-k+1} \end{aligned}<br>$$<br>我们把$w1, w2, · · ·$ 称为滤波器（Filter）或卷积核（Convolution Kernel）。假设滤波器长度为$m$，它和一个信号序列$x1, x2, · · ·$ 的卷积为<br>$$<br>y_{t}=\sum_{k=1}^{m} w_{k} \cdot x_{t-k+1}<br>$$<br>记为<br>$$<br>\mathbf{y}=\mathbf{w} \otimes \mathbf{x}<br>$$<br>这样就可以解释之前数学公式定义中奇怪的$n-\tau$了，因为实际上这是在计算时间$n$时，时刻$\tau$时的发射的信号，在经过了$n-\tau$后，所应该获取的加权，也就是衰减的程度。</p>
+<h2 id="1-1-卷积的物理含义"><a href="#1-1-卷积的物理含义" class="headerlink" title="1.1    卷积的物理含义"></a>1.1    卷积的物理含义</h2><p>一维卷积经常用在信号处理中，用于计算信号的延迟累积。假设一个信号发生器每个时刻$t$产生一个信号$x_t$，记该信号的信息量也为$x_t$，其信息的衰减率为$w_k$，即在$k-1$个时间步长后，信息为原来的$w_k$倍。假设$w_1$ = $1$, $w_2$ = $\frac 12$, $w_3$ =$\frac 14$，那么在时刻$t$收到的总信息量$y_t$为当前时刻产生的信息和以前时刻延迟信息的叠加,即：<br>$$<br>\begin{aligned} y_{t} &amp;=1 \times x_{t}+1 / 2 \times x_{t-1}+1 / 4 \times x_{t-2} \\ &amp;=w_{1} \times x_{t}+w_{2} \times x_{t-1}+w_{3} \times x_{t-2} \\ &amp;=\sum_{k=1}^{3} w_{k} \cdot x_{t-k+1} \end{aligned}<br>$$<br>我们把$w1, w2, · · ·$ 称为滤波器（Filter）或卷积核（Convolution Kernel）。假设滤波器长度为$m$，它和一个信号序列$x1, x2, · · ·$ 的卷积为<br>$$<br>y_{t}=\sum_{k=1}^{m} w_{k} \cdot x_{t-k+1}<br>$$<br>记为<br>$$<br>\mathbf{y}=\mathbf{w} \otimes \mathbf{x}<br>$$<br>这样就可以解释之前数学公式定义中奇怪的$n-\tau$了，因为实际上这是在计算时间$n$时，时刻$\tau$时的发射的信号，在经过了$n-\tau$后，所应该获取的加权，也就是衰减的程度。</p>
 <p>另外，所谓卷积的卷字也是出自这里，因为信号对应的衰减函数的自变量需要通过被$n$减去的形式来卷到另一边来对应，具体可以参考以下三张图片。</p>
 <p><img src="https://pic1.zhimg.com/80/v2-de38ad49f9a1c99dafcc5d0a7fcac2ef_hd.jpg" alt="img"></p>
 <p><img src="https://pic4.zhimg.com/80/v2-5d5ca564c8f0eaba9cd9865a9c944fbb_hd.jpg" alt="img"></p>
