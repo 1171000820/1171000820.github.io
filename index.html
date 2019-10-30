@@ -147,6 +147,128 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-逻辑斯蒂回归总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/30/逻辑斯蒂回归总结/">逻辑斯蒂回归总结</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/30/逻辑斯蒂回归总结/" class="archive-article-date">
+  	<time datetime="2019-10-30T06:15:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-30</time>
+</a>
+        
+      </header>
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-算法原理"><a href="#1-算法原理" class="headerlink" title="1.算法原理"></a>1.算法原理</h2><p>虽然名为回归，但实际上逻辑斯蒂(logistic)回归或称之为逻辑回归，是用来解决分类问题的。</p>
+<p>首先规定描述问题的符号，对于一个二分类问题，设$X_i $为第$i$个样本特征的输入向量,$X_i =<br>[x_1,x_2,…x_n]^T$维度为$dimension$（后文为书写方便使用$n$表示），类别$Y_i$为0或1。样本数量为$dataNum$。则输入矩阵$X$的大小为$dimension*dataNum$ 类别向量$Y_i$为$dataNum$维向量。</p>
+<h3 id="朴素贝叶斯假设"><a href="#朴素贝叶斯假设" class="headerlink" title="朴素贝叶斯假设"></a>朴素贝叶斯假设</h3><p>假设类条件概率分布是条件独立的，也就是说，分类的特征在类确定的条件下都是互相独立的。对于某个特定的样本$X_\theta$则有<br>$$<br>\begin{aligned} P\left(X_i=X_{\theta} | Y_i=y\right) &amp;=P\left(x_1=x_{\theta 1}, \cdots, x_n=x_{\theta n} | Y_i=y\right) \ &amp;=\prod_{j=1}^{n} P\left(x_j=x_{\theta j} | Y_i=y\right) \end{aligned}<br>$$</p>
+<h3 id="贝叶斯判别"><a href="#贝叶斯判别" class="headerlink" title="贝叶斯判别"></a>贝叶斯判别</h3><p>对于二分类问题，如果我们假设该问题满足朴素贝叶斯假设，且类条件概率分布满足高斯分布，类分布满足二项分布，即$\mathsf{P}(X_i|Y_i = y_k) \sim N(\mu_{ik}, \sigma_i)$，$P(Y_i) \sim B(\theta)$</p>
+<p>利用贝叶斯定理，可得对于输入向量为$X_i$的样本，分为类别$1$的概率$\mathsf{P}(Y_i=1|X_i)$为</p>
+<p>$$<br>P(Y_i = 1|X_i) = \cfrac{P(Y_i = 1) P(X_i|Y_i=1)}{P(X_i)}\tag{1}<br>$$<br>分为类别0的概率为<br>$$<br>P(Y_i = 0|X_i) = \cfrac{P(Y_i = 0) P(X_i|Y_i=0)}{P(X_i)}\tag{2}<br>$$<br>如果想要确定该样本的分类，只需要判断两种概率的大小关系即可。</p>
+<p>因为分母相同，所以我们只需要从数据中获取<br>$$<br>P(Y_i=0)P(X_i|Y_i=0)=\prod_{i=1}^{n} P\left(x_j=x_{ij} | Y_i=0\right)\tag{3}<br>$$</p>
+<p>$$<br>P(Y_i=1)P(X_i|Y_i=1)=\prod_{i=1}^{n} P\left(x_j=x_{ij} | Y_i=1\right)\tag{4}<br>$$</p>
+<p>并比较两者大小即可。</p>
+<p>最直观的想法是朴素贝叶斯分类器，直接从数据中获取$P(Y_i=y)$以及$P(x_j=x_{ij}|Y_i=y)$，即可比较两者大小。</p>
+<h3 id="Logistic回归"><a href="#Logistic回归" class="headerlink" title="Logistic回归"></a>Logistic回归</h3><p>但是很多时候，朴素贝叶斯要求学习到准确的类条件概率，对数据准确性要求高。且对于假设的要求比较严格，如果输入数据维度间的独立性较差，朴素贝叶斯的效果也就会受到比较大的影响。且作为一种生成式分类器渐进误差不如直接对$P(Y_i|X)$建模的判别式分类器。$^1$</p>
+<p>因此，我们的目的是找到一些合适的参数，对$P(Y_i|X)$进行估计。</p>
+<p>以分类为0为例，将式$(2)$的分母按照全概率公式展开有：</p>
+<p>$$<br>P(Y_i = 0|X_i) = \cfrac{P(Y_i = 0) P(X_i|Y_i=0)}{P(Y_i = 1)P(X_i|Y_i=1) + P(Y_i = 0)P(X_i|Y_i=0)}\tag{5}<br>$$<br>上下同时除以$_P(Y_i=0)P(X|Y_i=0)$，得到：</p>
+<p>$$<br>P(Y_i = 0 | X_i) = \cfrac{1}{1 + \cfrac{P(Y_i=1)P(X_i|Y_i=1)}{P(Y_i=0)P(X_i|Y_i=0)}} = \cfrac{1}{1 + exp\left(ln\cfrac{P(Y_i=1)P(X_i|Y_i=1)}{P(Y_i=0)P(X_i|Y_i=0)}\right)}\tag{6}<br>$$<br>因为我们先验假设了高斯分布作为类条件概率，所以这里取以$e$为底的对数有利于之后的形式化简。</p>
+<p>又由于$Y_i $符合伯努利分布，我们可以将$\theta = P(Y_i = 1)$带入$(6)$中得到:<br>$$<br>P(Y_i=0|X_i) = \cfrac{1}{1 + exp\left(ln(\dfrac{\theta}{1-\theta}) + ln\cfrac{P(X|Y_i=1)}{P(X|Y_i=0)}\right)}\tag{7}<br>$$<br>这里的$ln\cfrac{P(X|Y_i=1)}{P(X|Y_i=0)}$部分即为所谓的Logit函数，根据朴素贝叶斯假设，我们可以对每一维展开：<br>$$<br>P(Y_i=0|X_i) = \cfrac{1}{1 + exp\left(ln(\dfrac{\theta}{1-\theta}) + \sum_{i}\left( ln\cfrac{P(X_i|Y_i=1)}{P(X_i|Y_i=0)} \right) \right)}\tag{8}<br>$$<br>对于输入向量$X_i$ 的各个维度$x_i$，我们认为其满足高斯分布函数<br>$$<br>P(x_i=x_{ij}|Y_i=y_k)= \cfrac{1}{\sigma_{i}\sqrt{2\theta}} \ exp(\cfrac{-(x_i-\mu_{ik})^2}{2\sigma_{i}^2})\tag{9}<br>$$<br>代入，则有:<br>$$<br>P(Y_i=0|X_i) = \cfrac{1}{1 + exp\left(ln(\dfrac{\theta}{1-\theta}) + \sum_{i}\left( \cfrac{\mu_{i1} - \mu_{i0}}{\sigma_i^2}x_{ij} + \cfrac{\mu_{i0}^2 - \mu_{i1}^2}{2\sigma_i^2} \right) \right)}\tag{10}<br>$$<br>整理后，写成向量形式，有：</p>
+<p>$$<br>P(Y_i=0|X_i) = \cfrac{1}{1 + exp(w^TX_i+b)}\tag{11}<br>$$<br>其中，$b= \sum_i^n\left(\cfrac{\mu_{i0}^2 - \mu_{i1}^2}{2\sigma_i^2}\right) + ln(\cfrac{\theta}{1-\theta})$， $w_i = \cfrac{\mu_{i1} - \mu_{i0}}{\sigma_i^2},\ i&gt; 0$, $w =<br>[w_1,w_2,…w_n]^T$</p>
+<p>这里我们推出的概率表达与$sigmoid$函数的表达一致，该形式符合指数分布族/最大熵模型推导下得到的$sigmoid$函数。$sigmoid$可以视为二分类下的$softmax$，而$softmax$本身是最大熵模型下的产物。具体的联系可以参照《统计机器学习方法》的第六章。</p>
+<p>因此，分类为1的概率为:<br>$$<br>P(Y_i=0|X_i) = 1-\cfrac{1}{1 + exp(w^TX_i+b)}=\cfrac{exp(w^TX_i+b)}{1+exp(w^TX_i+b)}\tag{12}<br>$$<br>这里我们为$X_i$加上一维，将偏置$b$整合至参数$w$中，有$X_i = [1,x_1,x_2,..x_n]^T$$w = [b,w_1,w_2,…,w_n]^T$</p>
+<p>$$<br>P(Y_i=1|X)  \cfrac{exp(w^TX_i)}{1 + exp(w^TX_i)}\tag{13}<br>$$</p>
+<p>$$<br>P(Y_i=0|X) \cfrac{1}{1 + exp(w^TX_i)}\tag{14}<br>$$</p>
+<p>接下来的问题是如何对参数$w$进行估计，这里我们选择最大似然估计条件概率：<br>$$<br>w_{MLE} = \mathop{arg} \mathop{max}\limits_{w}\prod\limits_{l}P(Y_i|X_i, w)\tag{15}<br>$$<br>对式$(14)$两边同时取对数，采用对数损失函数，目的是为了得出一个可以求导的损失函数，如果使用如最小二乘法中的平方损失，我们无法对损失函数进行求导完成优化。有：<br>$$<br>l(w) = ln \prod\limits_{i}P(Y_i|X_i,w) = \sum\limits_{i}lnP(Y_i|X_i,w)\tag{16}<br>$$<br>将式$(13)(14)$带入$(16)$中，我们得到：<br>$$<br>P(Y_i|X_i,w)=P(Y_i=1|X_i,w)^{(Y_i)}  P(Y_i=0|X_i,w)^{(1-Y_i)}\tag{17}<br>$$<br>这里的统一形式之所以采用指数形式，并将概率相乘是为了取对数后便于计算。<br>$$<br>lnP(Y_i|X_i,w)<br>= Y_ilnP(Y_i=1|X_i,w)+(1-Y_i)lnP(Y_i=0|X_i,w)<br>$$</p>
+<p>$$<br>lnP(Y_i|X_i,w)<br>=Y_iw^TX_i-ln(1+exp(w^TX_i))\tag{18}<br>$$</p>
+<p>$$<br>l(w) = \sum\limits_{l}ln\left(Y_i^lw^TX_i - ln(1 + exp(w^TX_i))\right)\tag{19}<br>$$</p>
+<p>最大化式$(19)$就等价于最小化下式$(20)$:</p>
+<p>$$<br>\mathcal{L}(w) = \sum\limits_{l}\left(-Y_iw^TX_i + ln(1 + exp(w^TX_i))\right)\tag{20}<br>$$<br>式$(20)$即我们的损失函数，可以用梯度下降法、牛顿法等求解其最优解。</p>
+<p>加入$\lambda$为超参数的正则项后有：</p>
+<p>$$<br>\mathcal{L}(w) = \frac{\lambda}{2}w^Tw + \sum\limits_{l}\left(-Y_iw^TX + ln(1 + exp(w^TX))\right)\tag{21}<br>$$</p>
+<h2 id="2-算法的实现"><a href="#2-算法的实现" class="headerlink" title="2.算法的实现"></a>2.算法的实现</h2><p>算法实现部分，此处选择使用梯度下降法实现优化损失函数。</p>
+<h3 id="2-1-梯度下降实现"><a href="#2-1-梯度下降实现" class="headerlink" title="2.1 梯度下降实现"></a>2.1 梯度下降实现</h3><p>$$<br>w^{t+1} = {w^t} - \alpha\cfrac{\partial \mathcal{L}}{\partial w}(w^t)\tag{1}<br>$$</p>
+<p>梯度下降本身不需要做什么改变,。</p>
+<p>大部分代码复用之前最小二乘法的框架，这里特殊之处在于需要更改对loss和导数的计算。</p>
+<p>计算一阶导数，如下：<br>$$<br>\dfrac{\partial \mathcal{L}}{\partial w} = - \sum\limits_{i=1}^lX_i\left(Y_i - \cfrac{exp(w^TX)}{1+exp(w^TX)}\right)\tag{2}<br>$$<br>在数据特别多的时候，为了防止Loss过大而溢出，计算平均Loss，在$\Sigma$计算每一项时均乘以$\cfrac {1}{l}$损失函数变为:</p>
+<p>$$<br>\mathcal{L}(w) = \dfrac{\lambda}{2l}w^Tw + \dfrac{1}{l} \sum\limits_{l}\left(-Y_i^lw^TX+ ln(1 + exp(w^TX))\right)\tag{3}<br>$$<br>此外，由于指数增长较快，需要改进sigmoid函数的计算来避免溢出。</p>
+<p>较为简洁的方式是采用以下函数代替。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def logistic_function(x):</span><br><span class="line">    return .5 * (1 + np.tanh(.5 * x))</span><br></pre></td></tr></table></figure>
+<p>这里的$tanh$是双曲正切函数，有：<br>$$<br>tanhx = \cfrac{sinhx}{coshx}=\cfrac{e^x-e^{-x}}{e^x+e^{-x}}\tag{4}<br>$$</p>
+<p>$$<br>0.5*（1+tanh0.5x）=\cfrac{e^{0.5x}}{e^{0.5x}+e^{-0.5x}}=\cfrac{1}{1+e^{-x}}\tag{5}<br>$$</p>
+<p>也可以通过其它的方式来计算，防止溢出。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">logistic回归</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">分类</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/30/逻辑斯蒂回归总结/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-最小二乘法相关总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -237,11 +359,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">最小二乘法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">最小二乘法</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
